@@ -24,10 +24,16 @@ const router = createBrowserRouter([
       { path: "/results", element: <Results /> },
       { path: "/result/:id", element: <Result /> },
     ],
+    
   },
 
   
   { path: "/test", element: <Results /> },
-]);
+],
+{
+    basename: "/Assessments_frontend",  
+  }
+
+);
 
 export default router;
