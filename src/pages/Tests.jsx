@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../api/axios";
+import api from "../api/TestApi.jsx";
 
 export default function Tests() {
   const [tests, setTests] = useState([]);
@@ -7,8 +7,10 @@ export default function Tests() {
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const res = await api.get("test/all_tests");
+        const res = await api.getAllQuizzes();
         setTests(res.data);
+        console.log(res.data.token);
+        // console.log(localStorage.getItem("username"));
       } catch (err) {
         console.error("Error fetching tests:", err);
       }
@@ -28,11 +30,12 @@ export default function Tests() {
         {tests.map((e, i) => (
           <div
             key={i}
-            onClick={() => (window.location.href = `/test/${e}`)}
+            onClick={() => (window.location.href = `/test/${e.id}`)}
             className="p-5 bg-white shadow-md rounded-xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer"
           >
-            <h2 className="text-xl font-semibold text-gray-800">{e}</h2>
-            <p className="text-gray-500 text-sm mt-1">Click to begin</p>
+            <h2 className="text-xl font-semibold text-gray-800">{e.title}</h2>
+            
+            <p className="text-gray-500 text-sm mt-1">{e.id}</p>
           </div>
         ))}
       </div>

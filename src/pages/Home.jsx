@@ -1,7 +1,14 @@
+import { useNavigate } from "react-router-dom";
 export default function Home() {
-
+const navigate = useNavigate();
   const navToTests = () => {
-    window.location.href = "/tests";
+    navigate("/tests");
+  }
+  const navToLogin = () => {
+    navigate("/login");
+  }
+  const navToRegister = () => {
+    navigate("/signup");
   }
   return (
     <div className="flex justify-center px-4 py-16">
@@ -17,12 +24,17 @@ export default function Home() {
 
         {/* Auth Buttons */}
         <div className="flex justify-center gap-4 mb-8">
-          <button className="px-5 py-2 border border-gray-700 rounded-lg hover:bg-gray-100 transition">
+          <button className="px-5 py-2 border border-gray-700 rounded-lg hover:bg-gray-100 transition"
+          onClick={navToLogin}
+          >
             Login
           </button>
 
-          <button className="px-5 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition">
+          <button className="px-5 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition"
+             onClick={navToRegister}
+          >
             Sign Up
+         
           </button>
         </div>
 

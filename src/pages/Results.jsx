@@ -1,10 +1,36 @@
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../api/TestApi";
+import { AuthContext } from "../context/AuthContext";
+
 export default function Results() {
-  // Example previous results — replace with real data later
-  const results = [
-    { test: "Math Basics", score: 8, total: 10 },
-    { test: "Science Quiz", score: 6, total: 10 },
-    { test: "History Test", score: 9, total: 10 },
-  ];
+  const navigate = useNavigate();
+
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+const username= localStorage.getItem("username");
+  // Fetch all past results
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const res = await api.getUserResults(username);
+        //TODO: for user
+        console.log("Fetched results:", res.data);
+
+        setResults(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load past results!");
+      }
+      setLoading(false);
+    };
+
+    fetchResults();
+  }, []);
+
+  if (loading) return <p className="text-center mt-10">Loading past results...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
     <div className="max-w-xl mx-auto mt-10 px-4">
@@ -18,14 +44,15 @@ export default function Results() {
       </p>
 
       <div className="space-y-4">
-        {results.map((r, i) => (
+        {results.map((r) => (
           <div
-            key={i}
+            key={r.id}
             className="p-5 bg-white rounded-xl border border-gray-100 shadow hover:shadow-lg hover:-translate-y-1 transition cursor-pointer"
+            onClick={() => navigate(`/result/${r.id}`)} // go to detailed result screen
           >
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-800">
-                {r.test}
+                Quiz: {r.quizid}
               </h2>
 
               <p className="text-blue-600 font-bold text-lg">
@@ -34,7 +61,7 @@ export default function Results() {
             </div>
 
             <p className="text-gray-500 text-sm mt-2">
-              {Math.round((r.score / r.total) * 100)}% score
+              {Math.round((r.score / r.total) * 100)}% score — {r.totalQuestions} questions
             </p>
           </div>
         ))}
