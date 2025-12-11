@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Tests() {
   const [tests, setTests] = useState([]);
+  const [noTests, setNoTests] = useState(false);
 const navigate = useNavigate();
 
 
@@ -14,6 +15,9 @@ const navigate = useNavigate();
         const res = await api.getAllQuizzes();
         setTests(res.data);
         console.log(res.data.token);
+        if(res.data.length === 0){
+          setNoTests(true);
+        }
         // console.log(localStorage.getItem("username"));
       } catch (err) {
         console.error("Error fetching tests:", err);
@@ -29,8 +33,16 @@ const navigate = useNavigate();
       <p className="text-gray-600 mb-8">
         Start your quiz journey below. Choose a test and challenge yourself!
       </p>
+{noTests && (<p className="text-gray-500">No tests available at the moment.</p>
+)}
+{noTests===false && tests.length===0 && (
+  <div className="flex flex-col justify-center items-center py-10">
+  <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent mb-3"></div>
+  <p className="text-gray-500">Loading tests...</p>
+</div>
 
-      <div className="space-y-4">
+)}
+      {tests.length>0 && <div className="space-y-4">
         {tests.map((e, i) => (
           <div
             key={i}
@@ -43,7 +55,7 @@ const navigate = useNavigate();
             <p className="text-gray-500 text-sm mt-1">{e.id}</p>
           </div>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }

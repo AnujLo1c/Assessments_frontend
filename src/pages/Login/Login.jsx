@@ -9,8 +9,10 @@ export default function Login() {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const { loginUser } = useContext(AuthContext);
+const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
+setLoading(true);
     e.preventDefault();
 
     try {
@@ -20,13 +22,22 @@ export default function Login() {
       
       loginUser(res.data.token);
       localStorage.setItem("username", form.username);
+      setLoading(false);
       navigate("/");
     } catch (err) {
       setMsg("Invalid username or password.");
+      setLoading(false);
     }
   };
 
   return (
+    <>
+    {loading && (
+  <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+    <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+  </div>
+)}
+
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
@@ -74,5 +85,7 @@ export default function Login() {
         {msg && <p className="mt-3 text-center text-red-500">{msg}</p>}
       </div>
     </div>
+     </>
   );
+ 
 }
