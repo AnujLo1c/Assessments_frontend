@@ -37,29 +37,39 @@ let {setBackendReady} = useBackend();
 
   // Check backend health every 2 seconds
   useEffect(() => {
-    const checkServer = async () => {
-      try {
-        const res = await fetch("https://assessments-backend.onrender.com/api/auth/health"); 
-        if (res.ok) {
-          setServerUp(true);
-          setProgress(100);
-          setStatus("Server is ready! Redirecting...");
-          console.log("nav");
-          setBackendReady(true);
-          setTimeout(() => {
-           navigate("/"); // Redirect
-          }, 1000);
-          console.log("nav");
-          
-        }
-      } catch (e) {
-        console.log("Backend not responding...");
-      }
-    };
+  let redirected = false; // prevents multiple redirects
 
-    const interval = setInterval(checkServer, 2000);
-    return () => clearInterval(interval);
-  }, []);
+  const checkServer = async () => {
+    try {
+      const res = await fetch("https://assessments-backend.onrender.com/api/health", {
+        method: "GET",
+      });
+
+      if (res.ok) {
+        setServerUp(true);
+        setProgress(100);
+        setStatus("Server is ready! Redirecting...");
+        setBackendReady(true);
+
+        if (!redirected) {
+          redirected = true; // prevent further redirects
+          setTimeout(() => navigate("/"), 800);
+        }
+      }
+    } catch (err) {
+      console.log("Backend not responding...");
+    }
+  };
+
+  // Run immediately at component mount
+  checkServer();
+
+  // Check every 10 seconds
+  const interval = setInterval(checkServer, 10000);
+
+  return () => clearInterval(interval);
+}, [navigate]);
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white px-4">
