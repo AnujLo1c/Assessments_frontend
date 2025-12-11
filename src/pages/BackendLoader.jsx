@@ -41,7 +41,7 @@ let {setBackendReady} = useBackend();
 
   const checkServer = async () => {
     try {
-      const res = await fetch("https://assessments-backend.onrender.com/api/health", {
+      const res = await fetch("https://assessments-backend.onrender.com/api/auth/health", {
         method: "GET",
       });
 
