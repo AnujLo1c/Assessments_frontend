@@ -39,7 +39,7 @@ let {setBackendReady} = useBackend();
   useEffect(() => {
     const checkServer = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/auth/health"); // HEALTH API
+        const res = await fetch("https://assessments-backend.onrender.com/api/auth/health"); 
         if (res.ok) {
           setServerUp(true);
           setProgress(100);
