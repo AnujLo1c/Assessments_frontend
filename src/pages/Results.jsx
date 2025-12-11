@@ -44,27 +44,28 @@ const username= localStorage.getItem("username");
       </p>
 
       <div className="space-y-4">
-        {results.map((r) => (
-          <div
-            key={r.id}
-            className="p-5 bg-white rounded-xl border border-gray-100 shadow hover:shadow-lg hover:-translate-y-1 transition cursor-pointer"
-            onClick={() => navigate(`/result/${r.id}`)} // go to detailed result screen
-          >
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Quiz: {r.quizid}
-              </h2>
+       {[...results].reverse().map((r) => (
+  <div
+    key={r.id}
+    className="p-5 bg-white rounded-xl border border-gray-100 shadow hover:shadow-lg hover:-translate-y-1 transition cursor-pointer"
+    onClick={() => navigate(`/result/${r.id}`)}
+  >
+    <div className="flex justify-between items-center">
+      <h2 className="text-xl font-semibold text-gray-800">
+        Quiz: {r.quizid}
+      </h2>
 
-              <p className="text-blue-600 font-bold text-lg">
-                {r.score}/{r.total}
-              </p>
-            </div>
+      <p className="text-blue-600 font-bold text-lg">
+        {r.score}/{r.total}
+      </p>
+    </div>
 
-            <p className="text-gray-500 text-sm mt-2">
-              {Math.round((r.score / r.total) * 100)}% score — {r.totalQuestions} questions
-            </p>
-          </div>
-        ))}
+    <p className="text-gray-500 text-sm mt-2">
+      {Math.round((r.score / r.total) * 100)}% score — {r.totalQuestions} questions
+    </p>
+  </div>
+))}
+
       </div>
 
     </div>

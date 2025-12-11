@@ -125,7 +125,7 @@ console.log(mapped);
 
   // ---------- SUBMIT TEST TO BACKEND ----------
   const submitTest = async () => {
-    // show a confirm dialog
+
     console.log("Selected",selected);
     
     const confirmSubmit = window.confirm(

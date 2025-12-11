@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "../api/TestApi.jsx";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Tests() {
   const [tests, setTests] = useState([]);
+const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -30,7 +34,8 @@ export default function Tests() {
         {tests.map((e, i) => (
           <div
             key={i}
-            onClick={() => (window.location.href = `/test/${e.id}`)}
+            // onClick={() => (window.location.href = `/test/${e.id}`)}
+            onClick={() => (navigate(`/test/${e.id}`))}
             className="p-5 bg-white shadow-md rounded-xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer"
           >
             <h2 className="text-xl font-semibold text-gray-800">{e.title}</h2>
