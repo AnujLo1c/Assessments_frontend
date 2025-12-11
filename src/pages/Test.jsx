@@ -133,16 +133,36 @@ console.log(mapped);
     );
 
     if (!confirmSubmit) return;
-if(!(selected.length===questions.length)){
-  let diff=questions.length-selected.length;
-  for(let i=0;i<diff;i++){
+
+    //////////// DEBUG LOGS AND PADDING ///////////////
+console.log("📝 DEBUG → Before padding:");
+console.log("Selected count:", selected.length);
+console.log("Total questions:", questions.length);
+console.log("Selected array:", selected);
+
+if (selected.length !== questions.length) {
+  
+  const diff = questions.length - selected.length;
+
+  console.log("⚠️ Missing answers detected:", diff);
+const qIndex = selected.length;
+  for (let i = 0; i < diff; i++) {
+     qIndex+ i;
+    const q = questions[    qIndex+ i];
+
+    console.log(`➡️ Adding placeholder for question index ${    qIndex+ i}, questionId: ${q?.id}`);
+
     selected.push({
-      questionId:questions[selected.length+i].id,
-      selected:null
+      questionId: q?.id ?? "UNKNOWN_ID",
+      selected: null
     });
   }
-  
 }
+
+console.log("📝 DEBUG → After padding:");
+console.log("Updated selected count:", selected.length);
+console.log("Final selected array:", selected);
+///////////////
     setIsSubmitting(true); // start loader
     setFinished(true); // ensure finished state
       let username = localStorage.getItem("username");
