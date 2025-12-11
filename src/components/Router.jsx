@@ -29,10 +29,7 @@ const router = createBrowserRouter([
 
   
   { path: "/test", element: <Results /> },
-],
-{
-    basename: "/Assessments_frontend",  
-  }
+]
 
 );
 
