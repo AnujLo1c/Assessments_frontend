@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 export default function Home() {
 const navigate = useNavigate();
+let {user}=useContext(AuthContext);
   const navToTests = () => {
     navigate("/tests");
   }
@@ -23,7 +26,7 @@ const navigate = useNavigate();
         </p>
 
         {/* Auth Buttons */}
-        <div className="flex justify-center gap-4 mb-8">
+       {!user &&<div className="flex justify-center gap-4 mb-8">
           <button className="px-5 py-2 border border-gray-700 rounded-lg hover:bg-gray-100 transition"
           onClick={navToLogin}
           >
@@ -36,14 +39,14 @@ const navigate = useNavigate();
             Sign Up
          
           </button>
-        </div>
-
-        {/* Start Test */}
+        </div>}
+{user &&
+       
         <button className="px-6 py-3 rounded-lg bg-blue-600 text-white text-lg hover:bg-blue-500 transition shadow-md"
         onClick={navToTests}
         >
           Take Test
-        </button>
+        </button>}
 
       </div>
     </div>

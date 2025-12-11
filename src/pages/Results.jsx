@@ -56,7 +56,7 @@ const username= localStorage.getItem("username");
       </h2>
 
       <p className="text-blue-600 font-bold text-lg">
-        {r.score}/{r.total}
+        {r.correctAnswers}/{r.totalQuestions}
       </p>
     </div>
 

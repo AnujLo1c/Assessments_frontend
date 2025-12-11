@@ -38,7 +38,7 @@ export default function Result() {
     totalAttempted
   } = result;
 
-  const percentage = Math.round((score / total) * 100);
+  const percentage = Math.round((correctAnswers / totalQuestions) * 100);
 
   return (
     <div className="max-w-2xl mx-auto mt-10 px-4">
@@ -58,7 +58,7 @@ export default function Result() {
         <p className="text-6xl font-bold text-blue-600">{percentage}%</p>
 
         <p className="text-gray-600 mt-2 text-lg">
-          {score} out of {total} marks
+          {correctAnswers} out of {totalQuestions} marks
         </p>
 
         <div className="w-full bg-gray-200 rounded-full h-3 mt-5">
