@@ -10,7 +10,7 @@ export default function Test() {
   const [started, setStarted] = useState(false);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState([]);
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(60);
   const [attempted, setAttempted] = useState(0);
   const [finished, setFinished] = useState(false);
   const [showFullscreenWarning, setShowFullscreenWarning] = useState(false);
@@ -202,7 +202,7 @@ console.log("Payload",payload);
     }
 
     setCurrent((c) => c + 1);
-    setTimer(10);
+    setTimer(60);
   };
 
 useEffect(() => {
@@ -220,7 +220,7 @@ useEffect(() => {
 
         // Otherwise go to next question
         setCurrent((c) => c + 1);
-        return 10; 
+        return 60; 
       }
 
       return prev - 1;
