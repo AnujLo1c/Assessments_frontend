@@ -37,14 +37,14 @@ let {setBackendReady} = useBackend();
 
   // Check backend health every 2 seconds
   useEffect(() => {
+    let VITE_API_URL=import.meta.env.VITE_API_URL;
   let redirected = false; // prevents multiple redirects
-
+console.log("Checking backend:", VITE_API_URL);
   const checkServer = async () => {
     try {
-      const res = await fetch("https://assessments-backend.onrender.com/api/auth/health", {
+      const res = await fetch(`${VITE_API_URL}/auth/health`, {
         method: "GET",
       });
-
       if (res.ok) {
         setServerUp(true);
         setProgress(100);

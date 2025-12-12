@@ -48,9 +48,15 @@ class TestApi {
   static getAllResults() {
     return api.get("/result/results");
   }
+
+  //fetch results for a specific user
   static getUserResults(id) {
     return api.get(`/result/user/${id}`);
   }
+  static getUserResultsPaginated(page) {
+    return api.get(`/result?page=${page}&size=10`);
+  }
+
 
  static getResult(data) {
     return api.post("/result/submit",data);
