@@ -5,21 +5,22 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
- useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) setUser(token);
+    
   }, []);
+  
   const loginUser = (token) => {
     localStorage.setItem("token", token);
     console.log(token);
-    
+
     setUser(token);
-    
   };
 
   const logoutUser = () => {
     localStorage.removeItem("token");
-     localStorage.removeItem("username");
+    localStorage.removeItem("username");
     setUser(null);
   };
 
